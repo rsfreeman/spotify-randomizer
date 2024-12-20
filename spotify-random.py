@@ -110,16 +110,15 @@ def get_playlist_ids():
                     break
                 if i == len(sp.current_user_playlists()['items']) - 1:
                     print(f"playlist {ap} not found")
-    # todo: move this into arg_playlist param with keyword all
     if arg_all_user_playlists:
         for p in sp.current_user_playlists()['items']:
             if p['name'] == 'DJ':
                 continue
             target_playlist_ids.append(p['id'])
     if arg_made_for_you:
-        # mfy_category_id = "0JQ5DAt0tbjZptfcdMSKl3"
-        mfy_category_id = "0JQ5DAUnp4wcj0bCb3wh3S"
         try:
+            print("Attempting to collect playlists from Spotify's Made For You category...")
+            mfy_category_id = "0JQ5DAUnp4wcj0bCb3wh3S"
             mfy_playlists = sp.category_playlists(category_id=mfy_category_id)['playlists']['items']
             for item in mfy_playlists:
                 if "Mix" not in item['name']:
