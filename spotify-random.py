@@ -119,11 +119,14 @@ def get_playlist_ids():
     if arg_made_for_you:
         # mfy_category_id = "0JQ5DAt0tbjZptfcdMSKl3"
         mfy_category_id = "0JQ5DAUnp4wcj0bCb3wh3S"
-        mfy_playlists = sp.category_playlists(category_id=mfy_category_id)['playlists']['items']
-        for item in mfy_playlists:
-            if "Mix" not in item['name']:
-                continue
-            target_playlist_ids.append(item['id'])
+        try:
+            mfy_playlists = sp.category_playlists(category_id=mfy_category_id)['playlists']['items']
+            for item in mfy_playlists:
+                if "Mix" not in item['name']:
+                    continue
+                target_playlist_ids.append(item['id'])
+        except spotipy.exceptions.SpotifyException:
+            print("Spotify nerfed access to playlists created by Spotify. Thanks Spotify! ¯\\_(ツ)_/¯")
     return target_playlist_ids
 
 
